@@ -1,0 +1,14 @@
+management:
+    endpoints:
+        enable-by-default: false
+        web:
+            exposure:
+                include: 'health, metrics, prometheus'
+    endpoint:
+        health:
+            show-details: always
+        prometheus:
+            enable: true
+        metrics:
+            tags:
+                application: demo
