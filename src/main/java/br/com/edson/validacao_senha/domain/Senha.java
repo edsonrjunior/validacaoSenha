@@ -1,5 +1,6 @@
 package br.com.edson.validacao_senha.domain;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,9 +22,9 @@ public class Senha {
 
     private static final String REGEX_SENHA = "^(?!.*(.).*\\1)(?!.*\\s)(?=.*\\d)(?=.*[a-z][A-Z])(?=.*[!@#$%^&*()-+]+).{9,}$";
 
+    @NotNull
     @Pattern(regexp = REGEX_SENHA)
     String password;
-
     public static boolean isRegexValido(String senha){
         return senha.matches(REGEX_SENHA);
     }

@@ -18,6 +18,7 @@ class SenhaTest {
     private static final String senhaLetraODuplicada = "AbTp9!foo";
     private static final String senhaLetraADuplicada = "AbTp9!foA";
     private static final String senhaComEspaco = "AbTp9 fok";
+    private static final String senhaValida = "AbTp9!fok";
 
     @ParameterizedTest
     @ValueSource(strings = {
@@ -38,8 +39,7 @@ class SenhaTest {
     @Test
     @DisplayName("Deve retornar true quando atender todos requisitos")
     void deveRetornarTrue() {
-        String senha = "AbTp9!fok";
-        var resultado = Senha.isRegexValido(senha);
+        var resultado = Senha.isRegexValido(senhaValida);
         Assertions.assertTrue(resultado);
     }
 
