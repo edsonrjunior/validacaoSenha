@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 public class SenhaServiceImpl implements SenhaService {
     @Override
     public boolean validarSenha(Senha senha, BindingResult validacaoSenha) {
-       //return !validacaoSenha.hasErrors(); //Clean Code
-        return validacaoSenha.hasErrors() ? false : true;
+        return !validacaoSenha.hasErrors();
     }
 }
