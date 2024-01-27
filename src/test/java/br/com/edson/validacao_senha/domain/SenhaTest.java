@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class SenhaTest {
 
-    private static final d senhaEmbranco = "";
+    private static final String senhaEmbranco = "";
     private static final String senhaApenasLetrasMinusculasEDuplicados = "aa";
     private static final String senhaLetrasMinusculas = "ab";
     private static final String senhaSemCaracteresEspeciais = "AAAbbbCc";
