@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>br.com.edson</groupId>
-    <artifactId>validacaoSenha</artifactId>
+    <artifactId>validacao_senha</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>validacaoSenha</name>
+    <name>validacao-senha</name>
     <description>API para validacao de senha</description>
     <properties>
         <java.version>17</java.version>
@@ -45,6 +45,8 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+<!--        Documentacao da API com Swagger-->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>

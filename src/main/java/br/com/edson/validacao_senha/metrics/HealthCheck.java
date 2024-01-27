@@ -1,4 +1,4 @@
-package br.com.edson.validacaoSenha.metrics;
+package br.com.edson.validacao_senha.metrics;
 
 import lombok.AllArgsConstructor;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;

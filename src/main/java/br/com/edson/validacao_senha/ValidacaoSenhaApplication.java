@@ -1,4 +1,4 @@
-package br.com.edson.validacaoSenha;
+package br.com.edson.validacao_senha;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
