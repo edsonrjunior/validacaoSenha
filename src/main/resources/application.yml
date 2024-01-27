@@ -11,4 +11,4 @@ management:
             enable: true
         metrics:
             tags:
-                application: demo
+                application: ValidacaoSenha
