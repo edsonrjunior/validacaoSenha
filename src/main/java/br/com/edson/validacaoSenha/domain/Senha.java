@@ -12,8 +12,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Senha {
 
+    /**
+     * aa
+     * ab
+     * AAAbbbCc
+     * AbTp9!foo
+     * AbTp9!foA
+     * AbTp9 fok
+     * AbTp9!fok
+     */
+
     @NotNull
     @NotBlank (message = "Senha inválida" )
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&*?])[A-Za-z\\d!@#$%^&*()-+]{8,30}$")
+    @Pattern(regexp = "^(?!.*(.).*\\1)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*()-+]).{9,}$")
     String senha;
 }
