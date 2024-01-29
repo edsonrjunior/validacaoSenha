@@ -1,6 +1,7 @@
 package br.com.edson.validacao_senha.service.Impl;
 
 import br.com.edson.validacao_senha.domain.Senha;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,6 +22,7 @@ class SenhaServiceImplTest {
     private BindingResult validacaoSenha;
 
     @Test
+    @DisplayName("Quando o bindingResult for true, deve retornar false ")
     void deveRetornarTrueQuandoHasErrosForFalse() {
 
         when(validacaoSenha.hasErrors()).thenReturn(true);
@@ -33,6 +35,7 @@ class SenhaServiceImplTest {
     }
 
     @Test
+    @DisplayName("Quando o bindingResult for false, deve retornar true ")
     void deveRetornarFalseQuandoHasErrosForTrue() {
 
         when(validacaoSenha.hasErrors()).thenReturn(false);
