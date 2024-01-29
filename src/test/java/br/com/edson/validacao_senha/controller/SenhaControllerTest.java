@@ -37,7 +37,7 @@ class SenhaControllerTest {
     void deveRetornar200QuandoApiForChamada() throws Exception {
         var senha = new Senha("AbTp9!fok");
 
-        mock.perform(post("/senha/validar_senha")
+        mock.perform(post("/v1/senha/validar_senha")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(senha)))
                 .andExpect(status().isOk());
@@ -48,7 +48,7 @@ class SenhaControllerTest {
     void deveRetornar404QuandoAUrlForInvalida() throws Exception {
         var senha = new Senha("AbTp9!fok");
 
-        mock.perform(post("/senha/urlInvalida")
+        mock.perform(post("/v1/senha/urlInvalida")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(senha)))
                 .andExpect(status().isNotFound());
