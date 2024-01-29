@@ -15,7 +15,7 @@ public class SenhaController {
 
     private final SenhaService senhaService;
 
-    @PostMapping(value = "/validar-senha", consumes = {"application/json"}, produces = {"application/json"})
+    @PostMapping(value = "/validar_senha", consumes = {"application/json"}, produces = {"application/json"})
     @ResponseStatus(HttpStatus.OK)
     public boolean isValid(@RequestBody @Valid Senha senha, BindingResult validacaoSenha) {
         return senhaService.validarSenha(senha, validacaoSenha);

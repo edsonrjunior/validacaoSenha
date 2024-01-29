@@ -38,7 +38,7 @@ class SenhaControllerTest {
     void deveRetornar200QuandoApiForChamada() throws Exception {
         var senha = new Senha("AbTp9!fok");
 
-        mock.perform(post("/senha/validar-senha")
+        mock.perform(post("/senha/validar_senha")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(senha)))
                 .andExpect(status().isOk());
