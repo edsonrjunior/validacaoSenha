@@ -19,7 +19,7 @@ public class Senha {
      * .{9,}                 - Permitir que a senha tenha ao menos 9 caracteres
      */
 
-    private static final String REGEX_SENHA = "^(?!.*(.).*\\1)(?!.*\\s)(?=.*\\d)(?=.*[a-z][A-Z])(?=.*[!@#$%^&*()-+]+).{9,}$";
+    private static final String REGEX_SENHA = "^(?!.*(.).*\\1)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()+-]+).{9,}$";
 
     @NotNull
     @Pattern(regexp = REGEX_SENHA)
