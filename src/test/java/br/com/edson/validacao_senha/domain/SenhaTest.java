@@ -18,6 +18,9 @@ class SenhaTest {
     private static final String senhaLetraODuplicada = "AbTp9!foo";
     private static final String senhaLetraADuplicada = "AbTp9!foA";
     private static final String senhaComEspaco = "AbTp9 fok";
+    private static final String senhaComCaractereNaoPermitido = "AbCp9!fok/";
+    private static final String senhaComCaractereNaoPermitido2 = "AbCp9!fok,";
+    private static final String senhaComCaractereNaoPermitido3 = "AbCp9!fok>";
     private static final String senhaValida = "AbTp9!fok";
 
     @ParameterizedTest
@@ -28,7 +31,10 @@ class SenhaTest {
             senhaSemCaracteresEspeciais,
             senhaLetraODuplicada,
             senhaLetraADuplicada,
-            senhaComEspaco})
+            senhaComEspaco,
+            senhaComCaractereNaoPermitido,
+            senhaComCaractereNaoPermitido2,
+            senhaComCaractereNaoPermitido3})
     @DisplayName("Deve retornar false para senhas invalidas")
     void deveValidarSenhasInvalidas(String senhaValida) {
         var resultado = Senha.isRegexValido(senhaValida);

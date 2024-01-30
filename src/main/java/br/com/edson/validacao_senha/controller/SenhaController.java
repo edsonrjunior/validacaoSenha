@@ -14,15 +14,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping({"/v1/senha"})
 public class SenhaController {
     private final SenhaService senhaService;
-    private final Bucket bucket = RateLimit.setupBucket();
-
+    private final Bucket bucketConfig = RateLimit.bucketConfig();
+    private static final int UM_TOKEN = 1;
     public SenhaController(SenhaService senhaService) {
         this.senhaService = senhaService;
     }
 
     @PostMapping(value = "/validar_senha", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<Boolean> isValid(@RequestBody @Valid Senha senha, BindingResult validacaoSenha) {
-        if (bucket.tryConsume(1)) {
+        if (bucketConfig.tryConsume(UM_TOKEN)) {
             return ResponseEntity.ok(senhaService.validarSenha(validacaoSenha));
         }
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();

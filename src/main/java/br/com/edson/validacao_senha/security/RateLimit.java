@@ -11,7 +11,7 @@ public class RateLimit {
     private RateLimit() {}
 
     @Bean
-    public static Bucket setupBucket() {
+    public static Bucket bucketConfig() {
         Refill refill = Refill.intervally(10, Duration.ofMinutes(1));
         Bandwidth limit = Bandwidth.classic(10, refill);
         return Bucket.builder()
