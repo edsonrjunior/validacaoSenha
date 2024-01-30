@@ -6,6 +6,6 @@ import org.springframework.validation.BindingResult;
 
 public interface SenhaService {
 
-   boolean validarSenha(Senha senha, BindingResult validacaoSenha);
+   boolean validarSenha(final BindingResult validacaoSenha);
 
 }

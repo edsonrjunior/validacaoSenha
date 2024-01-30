@@ -27,8 +27,7 @@ class SenhaServiceImplTest {
 
         when(validacaoSenha.hasErrors()).thenReturn(true);
 
-        Senha senha = new Senha("");
-        boolean isSenhaValida = senhaService.validarSenha(senha, validacaoSenha);
+        boolean isSenhaValida = senhaService.validarSenha(validacaoSenha);
 
         assertFalse(isSenhaValida);
         verify(validacaoSenha, times(1)).hasErrors();
@@ -40,8 +39,7 @@ class SenhaServiceImplTest {
 
         when(validacaoSenha.hasErrors()).thenReturn(false);
 
-        Senha senha = new Senha("");
-        boolean isSenhaValida = senhaService.validarSenha(senha, validacaoSenha);
+        boolean isSenhaValida = senhaService.validarSenha(validacaoSenha);
 
         assertTrue(isSenhaValida);
         verify(validacaoSenha, times(1)).hasErrors();
