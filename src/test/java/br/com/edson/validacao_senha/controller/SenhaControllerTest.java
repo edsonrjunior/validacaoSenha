@@ -1,6 +1,7 @@
 package br.com.edson.validacao_senha.controller;
 
 import br.com.edson.validacao_senha.domain.Senha;
+import br.com.edson.validacao_senha.facade.SenhaFacade;
 import br.com.edson.validacao_senha.service.SenhaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -21,13 +22,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(SenhaController.class)
 class SenhaControllerTest {
-
-
     @Autowired
     private MockMvc mock;
 
     @MockBean
     private SenhaService senhaService;
+
+    @MockBean
+    private SenhaFacade senhaFacade;
+
 
     @Spy
     private BindingResult validacaoSenha;

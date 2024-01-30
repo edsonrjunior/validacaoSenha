@@ -7,13 +7,14 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.Duration;
 
-public class RateLimit {
-    private RateLimit() {}
+public class Bucket4j {
+    private Bucket4j() {}
 
     @Bean
     public static Bucket bucketConfig() {
-        Refill refill = Refill.intervally(10, Duration.ofMinutes(1));
-        Bandwidth limit = Bandwidth.classic(10, refill);
+        var refill = Refill.intervally(10, Duration.ofMinutes(1));
+        var limit = Bandwidth.classic(10, refill);
+
         return Bucket.builder()
                 .addLimit(limit)
                 .build();
