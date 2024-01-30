@@ -1,6 +1,6 @@
 package br.com.edson.validacao_senha.domain;
 
-import br.com.edson.validacao_senha.controller.domain.Senha;
+import br.com.edson.validacao_senha.controller.domain.request.Senha;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

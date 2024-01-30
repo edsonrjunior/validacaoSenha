@@ -1,4 +1,4 @@
-package br.com.edson.validacao_senha.controller.domain;
+package br.com.edson.validacao_senha.controller.domain.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

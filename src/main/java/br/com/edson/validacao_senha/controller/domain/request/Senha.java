@@ -1,4 +1,4 @@
-package br.com.edson.validacao_senha.controller.domain;
+package br.com.edson.validacao_senha.controller.domain.request;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

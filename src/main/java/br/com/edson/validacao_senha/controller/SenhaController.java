@@ -1,7 +1,7 @@
 package br.com.edson.validacao_senha.controller;
 
-import br.com.edson.validacao_senha.controller.domain.Senha;
-import br.com.edson.validacao_senha.controller.domain.SenhaReponse;
+import br.com.edson.validacao_senha.controller.domain.request.Senha;
+import br.com.edson.validacao_senha.controller.domain.response.SenhaReponse;
 import br.com.edson.validacao_senha.facade.SenhaFacade;
 import br.com.edson.validacao_senha.security.Bucket4j;
 import io.github.bucket4j.Bucket;
