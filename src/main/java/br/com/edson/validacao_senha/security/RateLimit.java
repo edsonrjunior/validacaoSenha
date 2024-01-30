@@ -1,4 +1,4 @@
-package br.com.edson.validacao_senha.config;
+package br.com.edson.validacao_senha.security;
 
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.Duration;
 
-public class BucketConfig {
-    private BucketConfig() {}
+public class RateLimit {
+    private RateLimit() {}
 
     @Bean
     public static Bucket setupBucket() {
