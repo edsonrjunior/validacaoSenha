@@ -1,7 +1,8 @@
 package br.com.edson.validacao_senha.service;
 
+import br.com.edson.validacao_senha.controller.domain.SenhaReponse;
 import org.springframework.validation.BindingResult;
 
 public interface SenhaService {
-    boolean validarSenha(final BindingResult validacaoSenha);
+    SenhaReponse validarSenha(final BindingResult validacaoSenha);
 }

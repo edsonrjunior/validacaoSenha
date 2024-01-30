@@ -1,6 +1,6 @@
 package br.com.edson.validacao_senha.controller;
 
-import br.com.edson.validacao_senha.domain.Senha;
+import br.com.edson.validacao_senha.controller.domain.Senha;
 import br.com.edson.validacao_senha.facade.SenhaFacade;
 import br.com.edson.validacao_senha.service.SenhaService;
 import com.fasterxml.jackson.databind.ObjectMapper;

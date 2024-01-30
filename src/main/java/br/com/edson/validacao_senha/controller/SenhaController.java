@@ -1,6 +1,7 @@
 package br.com.edson.validacao_senha.controller;
 
-import br.com.edson.validacao_senha.domain.Senha;
+import br.com.edson.validacao_senha.controller.domain.Senha;
+import br.com.edson.validacao_senha.controller.domain.SenhaReponse;
 import br.com.edson.validacao_senha.facade.SenhaFacade;
 import br.com.edson.validacao_senha.security.Bucket4j;
 import io.github.bucket4j.Bucket;
@@ -10,10 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = {"/v1/senha"}, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,7 +23,7 @@ public class SenhaController {
     private final Bucket bucketConfig = Bucket4j.bucketConfig();
 
     @PostMapping(value = "/validar_senha")
-    public ResponseEntity<Boolean> isValid(@RequestBody @Valid final Senha senha, BindingResult validacaoSenha) {
+    public ResponseEntity<SenhaReponse> isValid(@RequestBody @Valid final Senha senha, final BindingResult validacaoSenha) {
         if (bucketConfig.tryConsume(1)) {
             return ResponseEntity.ok(senhaFacade.validarSenha(validacaoSenha));
         }
