@@ -25,10 +25,12 @@ public class SenhaController {
 
     @PostMapping(value = "/validar_senha")
     public ResponseEntity<SenhaReponse> isValid(@RequestBody @Valid final Senha senha, final BindingResult validacaoSenha) {
-        if (bucketConfig.tryConsume(NUM_TOKENS)) {
-            return ResponseEntity.ok(senhaFacade.validarSenha(validacaoSenha));
-        }
-        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+        return naoAntigiuLimiteResquests() ?
+                ResponseEntity.ok(senhaFacade.validarSenha(validacaoSenha)):
+                ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
     }
 
+    public boolean naoAntigiuLimiteResquests() {
+        return bucketConfig.tryConsume(NUM_TOKENS);
+    }
 }
