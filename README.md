@@ -41,8 +41,8 @@ Requisitos:
   
 
 ## Arquitetura da aplicação
-A aplicação foi construída com framework Spring Boot em sua versão mais recente até o momento ``3.2.2``, assim como a versão do Java, sendo a versão ``21``.
-Utiliza o ``Arquitetura Onion`` que facilita a manutenção pois cada camada está bem definida e organizada, permite a testabilidade, métodos pequenos e definidos e a confiabilidade pois fluxo é facilmente mapeável.
+A aplicação foi construída com o framework Spring Boot na versão ``3.2.2``,a mais recente até o momento, assim como o Java ``21``. 
+<br>Utiliza a ``Arquitetura Onion``facilitando a manutenção pois cada camada está bem definida e organizada, permitindo a testabilidade com métodos pequenos e bem definidos e a confiabilidade pois fluxo é facilmente mapeável e testável
 
 * Camadas:
 - **Controller:** Responsável por lidar as requisições HTTP, definindo o endpoint ``/v1/senha/validar_senha``, o tipo do request e response e os HTTPs status code.
@@ -51,7 +51,7 @@ Utiliza o ``Arquitetura Onion`` que facilita a manutenção pois cada camada est
 
 
 ## Observability
-Está utilizando a biblioteca ``micrometer-registry-prometheus`` de expondo no endpoint ``http://localhost:8080/actuator/prometheus`` as métricas de saúde, da JVM e do Prometheus.
+Está utilizando a biblioteca ``micrometer-registry-prometheus``expondo no endpoint``http://localhost:8080/actuator/prometheus`` as métricas de saúde, da JVM e do Prometheus.
 Tais configurações estão definidas no arquivo ``application.yml``.
 <br>
 <br>Quanto à rastreabilidade, a aplicação está logando os principais eventos com a implementação da biblioteca ``@Slf4``.
@@ -67,4 +67,4 @@ O primeiro passo é clonar o repositório do Github e entrar no diretório da ap
     git clone https://github.com/edsonrjunior/validacaoSenha.git
     cd validacaoSenha
 
-Na IDE faça o build da aplicação executando o comando ``mvn clean install``. Após finalizado o build, inicie a aplicação com o comando ``mvn spring-boot:run``.
+Após abrir na IDE, faça o build da aplicação executando o comando ``mvn clean install``. Após finalizado o build, inicie a aplicação com o comando ``mvn spring-boot:run``.
