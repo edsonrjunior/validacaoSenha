@@ -3,7 +3,7 @@ package br.com.edson.validacao_senha.controller;
 import br.com.edson.validacao_senha.controller.domain.request.Senha;
 import br.com.edson.validacao_senha.controller.domain.response.SenhaReponse;
 import br.com.edson.validacao_senha.facade.SenhaFacade;
-import br.com.edson.validacao_senha.security.Bucket4j;
+import br.com.edson.validacao_senha.security.HttpCallsLimit;
 import io.github.bucket4j.Bucket;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +17,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = {"/v1/senha"}, produces = MediaType.APPLICATION_JSON_VALUE)
 public class SenhaController {
 
+    public static final int NUM_TOKENS = 1;
     @Autowired
     private SenhaFacade senhaFacade;
 
-    private final Bucket bucketConfig = Bucket4j.bucketConfig();
+    private final Bucket bucketConfig = HttpCallsLimit.bucketConfig();
 
     @PostMapping(value = "/validar_senha")
     public ResponseEntity<SenhaReponse> isValid(@RequestBody @Valid final Senha senha, final BindingResult validacaoSenha) {
-        if (bucketConfig.tryConsume(1)) {
+        if (bucketConfig.tryConsume(NUM_TOKENS)) {
             return ResponseEntity.ok(senhaFacade.validarSenha(validacaoSenha));
         }
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
     }
+
 }

@@ -35,6 +35,7 @@ class SenhaControllerTest {
     @Spy
     private BindingResult validacaoSenha;
 
+
     @Test
     @DisplayName("Deve retornar http code 200")
     void deveRetornar200QuandoApiForChamada() throws Exception {
