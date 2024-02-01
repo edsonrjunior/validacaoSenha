@@ -55,7 +55,7 @@ Requisitos:
 
 ## [Arquitetura da aplicação](#arquitetura-da-aplicação)
 
-A aplicação baseia-se na arquitetura Onion, dividindo em diferentes em camadas de implementação,
+A aplicação baseia-se na arquitetura Onion, dividindo em diferentes camadas de implementação,
 tais como a camada de domínio, de serviço e o core do projeto. Utiliza também alguns dos princícios do Solid,
 com classes de responsbilidade única e o princípio da segregação de interfaces, permitindo que o código seja mais
 enxuto.
@@ -179,7 +179,7 @@ a porta 8080.
 ![Img App Start Up](img_start_up_app.png)
 
 Em um aplicativo de testes de API (Postman ou Insomnia), crie uma resquisição do tipo POST no formato json conforme
-abaixo. Utilize o endpoint ```http http://localhost:8080/v1/senha/validar_senha```. <br> A seguir clique em SEND.
+abaixo. Utilize o endpoint ```http://localhost:8080/v1/senha/validar_senha```. <br> A seguir clique em SEND.
 
 ![Img Postman Request](img_postman_resquest.png)
 
