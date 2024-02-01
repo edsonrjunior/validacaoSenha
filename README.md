@@ -1,4 +1,4 @@
-<h1 align="center"> API Validacao de Senhas </h1> <br>
+<h1 align="center"> API Validação de Senhas </h1> <br>
 
 ## Sumario
 
