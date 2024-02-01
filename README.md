@@ -60,6 +60,8 @@ tais como a camada de domínio, de serviço e o core do projeto. Utiliza também
 com classes de responsbilidade única e o princípio da segregação de interfaces, permitindo que o código seja mais
 enxuto.
 
+O framework utilizado é o Spring Boot na versão 3.2.2 com Java 21.
+
 ### Spring Validation
 
 A regra de negócio resposável por validar a senha informada utiliza a
