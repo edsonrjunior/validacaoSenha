@@ -31,9 +31,8 @@ Requisitos:
 
 ## API
 * Endpoint HTTP:
-  - **POST** ``/v1/senha/validar_senha`` Valida a se senha atende os requisitos retornando ```{"valid": true}``` em caso positivo e ```{"valid": false}``` caso negativo.
+  - **POST** ``/v1/senha/validar_senha`` Valida a se senha atende os requisitos retornando no formato json ``true`` em caso positivo e ``false`` caso negativo.
   - Tanto em caso positivo quando negativo, a aplicação irá responder com o HTTP status ```200 OK```.
-  - Em casos de mais de 100 requisições em 1 minuto a aplicação responderá com o HTTP status ```429 Too Many Requests```'
 
 | Parâmetro | Tipo parâmetro | Tipo dado   | Obrigatório | Descrição                           |
 |-----------|----------------|-------------|-------------|-------------------------------------|
@@ -56,13 +55,10 @@ Tais configurações estão definidas no arquivo ``application.yml``.
 <br>
 <br>Quanto à rastreabilidade, a aplicação está logando os principais eventos com a implementação da biblioteca ``@Slf4``.
 
-<pre>
- <code class="language-java">
+```java
  log.info("Iniciando validação da senha do correlationId " + correlationId);
  log.info("A senha do correlationId " + correlationId + " possui erros");
- </code>
-</pre>
-
+```
 A aplicação também expõe o status do health check no endpoint ``http://localhost:8080/actuator/health``.
 
 
@@ -81,4 +77,30 @@ Após abrir na IDE, faça o build da aplicação executando o comando ``mvn clea
 <br>Após finalizado o build, inicie a aplicação com o comando ``mvn spring-boot:run`` e verifique se está utilizando a porta 8080.
 ![Img App Start Up](img_start_up_app.png)
 
+Em um aplicativo de testes de API (Postman ou Insomnia), crie uma resquisição do tipo POST no formato json conforme abaixo. Utilize o endpoint ```http http://localhost:8080/v1/senha/validar_senha```. <br> A seguir clique em SEND.
+
+![Img Postman Request](img_postman_resquest.png)
+
+Caso a string informada atenda os requitos, retornará ```{"valid": true}``` caso contrário ```{"valid": false}```, ambas com HTTP Status Code ```200```.
+
+![Img Postman Response true](img_postman_response.png)
+
+![Img Postman Response False](img_postman_response_false.png)
+
+Em caso de mais de 10 requisições em 1 minuto a aplicação responderá com o HTTP Status Code ```429 Too Many Requests```.
+
+![Img Postman Response 429](img_postman_response_429.png)
+
+Este é um __mecanismo de segurança__ implementado com a biblioteca ```bucket4j-core``` para evitar ataques de [__DDoS__](https://www.microsoft.com/pt-br/security/business/security-101/what-is-a-ddos-attack) e poder ser facilmente ajustado na classe ```HttpCallsLimit```.
+<br>O primeiro parâmetro do método ```intervally``` informa quantas requisições podem ser realizadas e o segundo parâmetro informa a duração que no caso é de 1 minuto. O primeiro parâmetro do método ```classic``` informa a capacidade máxima de requisições que a API terá.
+```java
+    @Bean
+    public static Bucket bucketConfig() {
+        var refill = Refill.intervally(10, Duration.ofMinutes(1));
+        var limit = Bandwidth.classic(10, refill);
+
+        return Bucket.builder()
+                .addLimit(limit)
+                .build();
+```
 
