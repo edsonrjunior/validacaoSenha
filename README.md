@@ -15,7 +15,7 @@
 
 [//]: # (![Bucket4j])
 
-Esta API tem o objetivo de validar uma senha no formato string e retornar um booleano. Retornar verdadeiro quando 
+Esta API tem o objetivo de validar uma senha no formato string e retornar um booleano. Ela retorna verdadeiro quando 
 atender todos os requisitos e falso quando não atender.
 
 Requisitos:
@@ -41,7 +41,7 @@ Requisitos:
   
 
 ## Arquitetura da aplicação
-A aplicação foi construída com o framework Spring Boot na versão ``3.2.2``,a mais recente até o momento, assim como o Java ``21``. 
+A aplicação foi construída com o framework Spring Boot na versão 3.2.2,a mais recente até o momento, assim como o Java 21. 
 <br>Utiliza a ``Arquitetura Onion``facilitando a manutenção pois cada camada está bem definida e organizada, permitindo a testabilidade com métodos pequenos e bem definidos e a confiabilidade pois fluxo é facilmente mapeável e testável
 
 * Camadas:
@@ -55,6 +55,14 @@ Está utilizando a biblioteca ``micrometer-registry-prometheus``expondo no endpo
 Tais configurações estão definidas no arquivo ``application.yml``.
 <br>
 <br>Quanto à rastreabilidade, a aplicação está logando os principais eventos com a implementação da biblioteca ``@Slf4``.
+
+<pre>
+ <code class="language-java">
+ log.info("Iniciando validação da senha do correlationId " + correlationId);
+ log.info("A senha do correlationId " + correlationId + " possui erros");
+ </code>
+</pre>
+
 A aplicação também expõe o status do health check no endpoint ``http://localhost:8080/actuator/health``.
 
 
@@ -67,4 +75,10 @@ O primeiro passo é clonar o repositório do Github e entrar no diretório da ap
     git clone https://github.com/edsonrjunior/validacaoSenha.git
     cd validacaoSenha
 
-Após abrir na IDE, faça o build da aplicação executando o comando ``mvn clean install``. Após finalizado o build, inicie a aplicação com o comando ``mvn spring-boot:run``.
+Após abrir na IDE, faça o build da aplicação executando o comando ``mvn clean install`` Verique se o build finalizou com sucesso.
+![Img Sucesso Build](img_build_sucess.png)
+
+<br>Após finalizado o build, inicie a aplicação com o comando ``mvn spring-boot:run`` e verifique se está utilizando a porta 8080.
+![Img App Start Up](img_start_up_app.png)
+
+

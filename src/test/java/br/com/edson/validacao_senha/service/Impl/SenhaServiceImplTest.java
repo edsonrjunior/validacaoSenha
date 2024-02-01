@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.validation.BindingResult;
 
+import java.util.UUID;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.verify;
@@ -24,13 +26,15 @@ class SenhaServiceImplTest {
     @Mock
     private BindingResult validacaoSenha;
 
+    private String correlationId = UUID.randomUUID().toString();
+
     @Test
     @DisplayName("Quando o bindingResult for true, deve retornar false ")
     void deveRetornarTrueQuandoHasErrosForFalse() {
 
         when(validacaoSenha.hasErrors()).thenReturn(true);
 
-        SenhaReponse senhaReponse = senhaService.validarSenha(validacaoSenha);
+        SenhaReponse senhaReponse = senhaService.validarSenha(validacaoSenha, correlationId);
 
         assertFalse(senhaReponse.isValid());
         verify(validacaoSenha, times(1)).hasErrors();
@@ -42,7 +46,7 @@ class SenhaServiceImplTest {
 
         when(validacaoSenha.hasErrors()).thenReturn(false);
 
-        SenhaReponse senhaReponse = senhaService.validarSenha(validacaoSenha);
+        SenhaReponse senhaReponse = senhaService.validarSenha(validacaoSenha, correlationId);
 
         assertTrue(senhaReponse.isValid());
         verify(validacaoSenha, times(1)).hasErrors();

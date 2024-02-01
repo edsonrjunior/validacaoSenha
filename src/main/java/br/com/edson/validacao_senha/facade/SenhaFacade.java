@@ -11,8 +11,8 @@ public class SenhaFacade {
     @Autowired
     private SenhaServiceImpl senhaService;
 
-    public SenhaReponse validarSenha(BindingResult validacaoSenha) {
-        return senhaService.validarSenha(validacaoSenha);
+    public SenhaReponse validarSenha(BindingResult validacaoSenha, String correlationId) {
+        return senhaService.validarSenha(validacaoSenha, correlationId);
     }
 
 }
