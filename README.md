@@ -3,14 +3,15 @@
 ## Sumario
 
 - [Sobre o Projeto](#sobre-o-projeto)
-- [Requisitos](#features)
-- [Arquitetura da aplicacação](#testes)
-- [Observability](#testes)
-- [Executando a aplicação](#testes)
-- [Segurança](#testes)
-- [Documentação](#testes)
-- [Docker](#testes)
-- [Testes Unitários e de Integração](#testes)
+- [API](#api)
+- [Requisitos](#requisitos)
+- [Arquitetura da aplicacação](#arquitetura-da-aplicação)
+- [Observability](#observability)
+- [Executando a aplicação](#executando-a-aplicação)
+- [Segurança](#segurança)
+- [Documentação](#documentação)
+- [Docker](#docker)
+- [Testes Unitários e de Integração](#testes-unitários-e-de-integração)
 - [Contato](#contato)
 
 ## [Sobre o Projeto](#sobre-o-projeto)
@@ -33,7 +34,7 @@ Requisitos:
 - Ter menos 1 caractere especial
     - São considerados válidos os caracteres especias !@#$%^&*()-+
 
-## API
+## [API](#api)
 
 * Endpoint HTTP:
     - **POST** ``/v1/senha/validar_senha`` Valida se senha atende os requisitos retornando no formato json ``true`` em caso positivo e ``false`` caso negativo.
@@ -43,7 +44,7 @@ Requisitos:
 |-----------|----------------|-------------|-------------|-------------------------------------|
 | Senha     | RequestBody    | Senha.class | Sim         | Classe com a a senha a ser validada |
 
-## Requisitos
+## [Requisitos](#requisitos)
 
 * Java 17 ou superior
 * Maven
@@ -51,10 +52,10 @@ Requisitos:
 * __IMPORTANTE__: Para executar em ambiente corporativo, é necessários configurar o ``settings.xml`` para baixar as
   bibliotecas do Artifactory
 
-## Arquitetura da aplicação
+## [Arquitetura da aplicação](#arquitetura-da-aplicação)
 
 
-## Observability
+## [Observability](#observability)
 
 Utiliza a biblioteca ``micrometer-registry-prometheus``
 expondo no endpoint``http://localhost:8080/actuator/prometheus`` as métricas de saúde, da JVM e do Prometheus, tais 
@@ -71,7 +72,7 @@ log.info("A senha do correlationId "+correlationId+" possui erros");
 ```
 Também expõe o status do health check no endpoint ``http://localhost:8080/actuator/health``.
 
-## Executando a aplicação
+## [Executando a aplicação](#executando-a-aplicação)
 
 O primeiro passo é clonar o repositório do Github e entrar no diretório da aplicação:
 
@@ -104,7 +105,7 @@ Em caso de mais de 10 requisições em 1 minuto a aplicação responderá com o 
 
 ![Img Postman Response 429](img_postman_response_429.png)
 
-## Segurança
+## [Segurança](#segurança)
 
 Limitar a quantidade de requisições é um __mecanismo de segurança__ implementado com a biblioteca ```bucket4j-core```
 para proteger contra ataques de
@@ -125,14 +126,14 @@ public static Bucket bucketConfig(){
         .build();
 ```
 
-## Documentação
+## [Documentação](#documentação)
 
 A aplicação utiliza o [Swagger](https://swagger.io/) que permite documentar de forma fácil e visual demonstrando
 quais parâmetros necessários no request como também o response. Permite também executar testes de forma fácil.
 
 ![Img Sucesso Build](img_swagger.png)
 
-## Docker
+## [Docker](#docker)
 
 E possível também executar facilmente com o Docker
 
@@ -155,7 +156,7 @@ docker container ps
 ```
 ![Img Cmd Docker Ps](img_cmd_docker_ps.png)
 
-## Testes Unitários e de Integração
+## [Testes Unitários e de Integração](#testes-unitários-e-de-integração)
 A implementação utilza o framework JUnit 5 com as bibliotecas Mockito e WebMvc.
 Possui 23 testes unitários com 100% das classes, 91.7% dos métodos e 92% das linhas cobertas.
 
