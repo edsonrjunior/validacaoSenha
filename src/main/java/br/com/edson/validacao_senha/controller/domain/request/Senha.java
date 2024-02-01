@@ -17,7 +17,7 @@ public class Senha {
      * (?=.*[a-z])                      - Permitir letras minusculas
      * (?=.*[A-Z])                      - Permitir letras maiusculas
      * (?=.*[!@#$%^&*()+-])             - permitir as caracteres da lista
-     * (?!.*[^a-zA-Z0-9!@#$%^&*()+-]+)  - Negatiava para nao permitir nenhum caracter especial diferente da lista
+     * (?!.*[^a-zA-Z0-9!@#$%^&*()+-]+)  - Negativa para nao permitir nenhum caracter especial diferente da lista
      * .{9,}                            - Permitir que a senha tenha ao menos 9 caracteres
      */
 

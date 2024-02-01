@@ -37,7 +37,8 @@ Requisitos:
 ## [API](#api)
 
 * Endpoint HTTP:
-    - **POST** ``/v1/senha/validar_senha`` Valida se senha atende os requisitos retornando no formato json ``true`` em caso positivo e ``false`` caso negativo.
+    - **POST** ``/v1/senha/validar_senha`` Valida se senha atende os requisitos retornando no formato json ``true`` em
+      caso positivo e ``false`` caso negativo.
     - Tanto em caso positivo quando negativo, a aplicação irá responder com o HTTP Status Code ```200 OK```.
 
 | Parâmetro | Tipo parâmetro | Tipo dado   | Obrigatório | Descrição                           |
@@ -54,22 +55,108 @@ Requisitos:
 
 ## [Arquitetura da aplicação](#arquitetura-da-aplicação)
 
+A aplicação baseia-se na arquitetura Onion, dividindo em diferentes em camadas de implementação,
+tais como a camada de domínio, de serviço e o core do projeto. Utiliza também alguns dos princícios do Solid,
+com classes de responsbilidade única e o princípio da segregação de interfaces, permitindo que o código seja mais
+enxuto.
+
+### Spring Validation
+
+A regra de negócio resposável por validar a senha informada utiliza a
+biblioteca [Spring Validation](https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html)
+pois é de fácil utilização, disponibilizando diversas anotações que abstraem a implementação de algoritmos de validação.
+
+```java
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class Senha {
+
+    private static final String REGEX_SENHA =
+            "^(?!.*(.).*\\1)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()+-])(?!.*[^a-zA-Z0-9!@#$%^&*()+-]+).{9,}$";
+
+    @NotNull
+    @Pattern(regexp = REGEX_SENHA)
+    String password;
+
+    public static boolean isRegexValido(String senha) {
+        return senha.matches(REGEX_SENHA);
+    }
+```
+
+A anotação ``@NotNull`` valida se a senha informada está nula retornando ``false`` na validação. <br>
+A anotação ``@Pattern(regexp = * )`` é o coração da regra de validação, ela permite de forma simples fazer todas as
+validações eliminando o uso de extensos ifs e elses.
+
+```java
+    /**
+ * (?!.*(.).*\1)                    - Não permitir caracteres duplicados
+ * (?!.*\s)                         - Não permitir espacos em branco
+ * (?=.*\d)                         - Permitir dígitos
+ * (?=.*[a-z])                      - Permitir letras minúsculas
+ * (?=.*[A-Z])                      - Permitir letras maúsculas
+ * (?=.*[!@#$%^&*()+-])             - Permitir as caracteres especiais
+ * (?!.*[^a-zA-Z0-9!@#$%^&*()+-]+)  - Negativa para não permitir nenhum caracter especial diferente da lista
+ * .{9,}                            - Permitir que a senha tenha ao menos 9 caracteres
+ */
+```
+
+* BindResult - Os resultados dos Spring Validation são retornados nesta classe e verificação pode ser verificada no
+  método ``hasErrors()`` que retorna um boolean quando há erros na validação.
+
+```java
+@PostMapping(value = "/validar_senha")
+public ResponseEntity<SenhaReponse> isValid(@RequestBody @Valid final Senha senha,final BindingResult validacaoSenha){
+        var correlationId=UUID.randomUUID().toString();
+
+        log.info("Iniciando validação da senha do correlationId "+correlationId);
+
+        return naoAntigiuLimiteResquests()?
+        ResponseEntity.ok(senhaFacade.validarSenha(validacaoSenha,correlationId)):
+        ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+}
+```
+Utilização do métodos hasErrors()
+
+```java
+@Slf4j
+@Service
+public class SenhaServiceImpl implements SenhaService {
+    @Override
+    public SenhaReponse validarSenha(final BindingResult validacaoSenha, final String correlationId) {
+        if (validacaoSenha.hasErrors()) {
+            log.info("A senha do correlationId " + correlationId + " possui erros");
+            return new SenhaReponse(false);
+        } else {
+            log.info("A senha do correlationId " + correlationId + " não possui erros");
+            return new SenhaReponse(true);
+        }
+    }
+}
+```
+
+### Lombok
+Em diversos trechos é utilizado o Lombok para simplificar o código, iliminando a necessidade de construir vários 
+boiler plates como getter, setters e construtores.
+
 
 ## [Observability](#observability)
 
 Utiliza a biblioteca ``micrometer-registry-prometheus``
-expondo no endpoint``http://localhost:8080/actuator/prometheus`` as métricas de saúde, da JVM e do Prometheus, tais 
+expondo no endpoint``http://localhost:8080/actuator/prometheus`` as métricas de saúde, da JVM e do Prometheus, tais
 métricas podem posteriormente serem capturadas e utilizadas pelo [Grafana](https://grafana.com/) para criação de
 dashboards.
-Tais configurações estão definidas no arquivo ``application.yml``. 
-
+Tais configurações estão definidas no arquivo ``application.yml``.
 
 A aplicação utiliza da implementação da biblioteca ``Slf4`` para logar os princiais eventos.
 
 ```java
 log.info("Iniciando validação da senha do correlationId "+correlationId);
-log.info("A senha do correlationId "+correlationId+" possui erros");
+        log.info("A senha do correlationId "+correlationId+" possui erros");
 ```
+
 Também expõe o status do health check no endpoint ``http://localhost:8080/actuator/health``.
 
 ## [Executando a aplicação](#executando-a-aplicação)
@@ -116,15 +203,18 @@ parâmetro informa a duração que no caso é de 1 minuto. O primeiro parâmetro
 capacidade máxima de requisições que a API terá.
 
 ```java
-    @Bean
+@Bean
 public static Bucket bucketConfig(){
-        var refill=Refill.intervally(10,Duration.ofMinutes(1));
-        var limit=Bandwidth.classic(10,refill);
+    final var refill=Refill.intervally(10,Duration.ofMinutes(1));
+    final var limit=Bandwidth.classic(10,refill);
 
-        return Bucket.builder()
+    return Bucket.builder()
         .addLimit(limit)
         .build();
+}
 ```
+Outra implementação utilizada é sempre proteger as classes com ``private`` e objetos com ``final`` contra modificação em tempo de executação ou mesmo 
+de implementação indevida.
 
 ## [Documentação](#documentação)
 
@@ -154,16 +244,20 @@ Então verifique se o container foi criado corretanente.
 ```shell 
 docker container ps
 ```
+
 ![Img Cmd Docker Ps](img_cmd_docker_ps.png)
 
+Depois, basta executar os testes como descritos na sessão [Executando a aplicação](#executando-a-aplicação).
+
 ## [Testes Unitários e de Integração](#testes-unitários-e-de-integração)
+
 A implementação utilza o framework JUnit 5 com as bibliotecas Mockito e WebMvc.
 Possui 23 testes unitários com 100% das classes, 91.7% dos métodos e 92% das linhas cobertas.
-
 
 ![Img Code Coverage](img_code_coverage.png)
 
 ## [Contato](#contato)
+
 Em caso de dúvida ou sugestões entre em contato no canais de sua preferência
 
 - [Email](mailto:edsonkjr@gmail.com)
