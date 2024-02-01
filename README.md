@@ -150,11 +150,11 @@ métricas podem posteriormente serem capturadas e utilizadas pelo [Grafana](http
 dashboards.
 Tais configurações estão definidas no arquivo ``application.yml``.
 
-A aplicação utiliza da implementação da biblioteca ``Slf4`` para logar os princiais eventos.
+A aplicação utiliza a biblioteca ``Slf4`` para logar os princiais eventos.
 
 ```java
 log.info("Iniciando validação da senha do correlationId "+correlationId);
-        log.info("A senha do correlationId "+correlationId+" possui erros");
+log.info("A senha do correlationId "+correlationId+" possui erros");
 ```
 
 Também expõe o status do health check no endpoint ``http://localhost:8080/actuator/health``.
