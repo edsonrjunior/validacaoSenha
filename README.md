@@ -133,10 +133,28 @@ Crie a imagem docker com o comando abaixo
 
 ```shell 
 docker build -t api/validacao_senha .
-
+```
 
 Em seguida crie o container para que a peça possa iniciar a execução
 
 ```shell 
 docker run -d -p 8080:8080 --name valida_senha api/validacao_senha
 ```
+
+Então verifique se o container foi criado corretanente.
+
+```shell 
+docker container ps
+```
+![Img Cmd Docker Ps](img_cmd_docker_ps.png)
+
+## Testes Unitários e de Integração
+Neste momento a aplicação possui 23 testes unitários com 100% das classes, 91.7% dos métodos e 92% das linhas cobertas.
+
+![Img Code Coverage](img_code_coverage.png)
+
+## Contato
+Em caso de dúvida ou sugestões entre em contato no canais de sua preferência
+
+- [Email](mailto:edsonkjr@gmail.com)
+- [LinkedIn](https://www.linkedin.com/in/edsonrjunior/)
