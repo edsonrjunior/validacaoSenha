@@ -32,7 +32,7 @@ Requisitos:
 - Ter menos 1 letra maiúscula
 - Não ter espaços em branco
 - Ter menos 1 caractere especial
-    - São considerados válidos os caracteres especias !@#$%^&*()-+
+    - São considerados válidos os caracteres especiais !@#$%^&*()-+
 
 ## [API](#api)
 
@@ -56,7 +56,7 @@ Requisitos:
 ## [Arquitetura da aplicação](#arquitetura-da-aplicação)
 
 A aplicação baseia-se na arquitetura Onion, dividindo em diferentes camadas de implementação,
-tais como a camada de domínio, de serviço e o core do projeto. Utiliza também alguns dos princícios do Solid,
+tais como a camada de domínio, de serviço e o core do projeto. Utiliza também alguns dos princípios do Solid,
 com classes de responsabilidade única e o princípio da segregação de interfaces, permitindo que o código seja mais
 enxuto.
 
@@ -111,7 +111,7 @@ validações eliminando o uso de extensos ifs e elses.
 ```java
 @PostMapping(value = "/validar_senha")
 public ResponseEntity<SenhaReponse> isValid(@RequestBody @Valid final Senha senha,final BindingResult validacaoSenha){
-        var correlationId=UUID.randomUUID().toString();
+        String correlationId=UUID.randomUUID().toString();
 
         log.info("Iniciando validação da senha do correlationId "+correlationId);
 
@@ -183,7 +183,7 @@ abaixo. Utilize o endpoint ```http://localhost:8080/v1/senha/validar_senha```. <
 
 ![Img Postman Request](doc/img_postman_resquest.png)
 
-Caso a string informada atenda os requitos, retornará ```{"valid": true}``` caso contrário ```{"valid": false}```,
+Caso a string informada atenda os requisitos, retornará ```{"valid": true}``` caso contrário ```{"valid": false}```,
 ambas com HTTP Status Code ```200```.
 
 ![Img Postman Response true](doc/img_postman_response.png)
@@ -207,8 +207,8 @@ capacidade máxima de requisições que a API terá.
 ```java
 @Bean
 public static Bucket bucketConfig(){
-    final var refill=Refill.intervally(10,Duration.ofMinutes(1));
-    final var limit=Bandwidth.classic(10,refill);
+    final Refill refill=Refill.intervally(10,Duration.ofMinutes(1));
+    final Bandwidth limit=Bandwidth.classic(10,refill);
 
     return Bucket.builder()
         .addLimit(limit)
@@ -254,14 +254,14 @@ Depois, basta executar os testes como descritos na sessão [Executando a aplica�
 
 ## [Testes Unitários e de Integração](#testes-unitários-e-de-integração)
 
-A implementação utilza o framework JUnit 5 com as bibliotecas Mockito e WebMvc.
+A implementação utiliza o framework JUnit 5 com as bibliotecas Mockito e WebMvc.
 Possui 23 testes unitários com 100% das classes, 91.7% dos métodos e 92% das linhas cobertas.
 
 ![Img Code Coverage](doc/img_code_coverage.png)
 
 ## [Contato](#contato)
 
-Em caso de dúvida ou sugestões entre em contato no canais de sua preferência
+Em caso de dúvida ou sugestões entre em contato nos canais de sua preferência
 
 - [Email](mailto:edsonkjr@gmail.com)
 - [LinkedIn](https://www.linkedin.com/in/edsonrjunior/)

@@ -12,7 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
@@ -22,6 +25,7 @@ import java.util.UUID;
 public class SenhaController {
 
     public static final int NUM_TOKENS = 1;
+
     @Autowired
     private SenhaFacade senhaFacade;
 
@@ -29,12 +33,12 @@ public class SenhaController {
 
     @PostMapping(value = "/validar_senha")
     public ResponseEntity<SenhaReponse> isValid(@RequestBody @Valid final Senha senha, final BindingResult validacaoSenha) {
-        var correlationId = UUID.randomUUID().toString();
+        String correlationId = UUID.randomUUID().toString();
 
-        log.info("Iniciando validação da senha do correlationId " + correlationId);
+        log.info("Iniciando validação da senha do correlationId {} ", correlationId);
 
         return naoAntigiuLimiteResquests() ?
-                ResponseEntity.ok(senhaFacade.validarSenha(validacaoSenha, correlationId)):
+                ResponseEntity.ok(senhaFacade.validarSenha(validacaoSenha, correlationId)) :
                 ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
     }
 

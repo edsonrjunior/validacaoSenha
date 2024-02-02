@@ -1,6 +1,5 @@
 package br.com.edson.validacao_senha.controller.domain.request;
 
-import br.com.edson.validacao_senha.controller.domain.request.Senha;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -38,7 +37,7 @@ class SenhaTest {
             senhaComCaractereNaoPermitido3})
     @DisplayName("Deve retornar false para senhas invalidas")
     void deveValidarSenhasInvalidas(String senhaValida) {
-        var resultado = Senha.isRegexValido(senhaValida);
+        boolean resultado = Senha.isRegexValido(senhaValida);
         Assertions.assertFalse(resultado);
     }
 
@@ -46,7 +45,7 @@ class SenhaTest {
     @Test
     @DisplayName("Deve retornar true quando atender todos requisitos")
     void deveRetornarTrue() {
-        var resultado = Senha.isRegexValido(senhaValida);
+        boolean resultado = Senha.isRegexValido(senhaValida);
         Assertions.assertTrue(resultado);
     }
 

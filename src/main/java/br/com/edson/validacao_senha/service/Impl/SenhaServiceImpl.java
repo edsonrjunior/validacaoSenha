@@ -9,13 +9,14 @@ import org.springframework.validation.BindingResult;
 @Slf4j
 @Service
 public class SenhaServiceImpl implements SenhaService {
+
     @Override
     public SenhaReponse validarSenha(final BindingResult validacaoSenha, final String correlationId) {
         if (validacaoSenha.hasErrors()) {
-            log.info("A senha do correlationId " + correlationId + " possui erros");
+            log.info("A senha do correlationId {} possui erros ", correlationId);
             return new SenhaReponse(false);
         } else {
-            log.info("A senha do correlationId " + correlationId + " não possui erros");
+            log.info("A senha do correlationId {} não possui erros", correlationId);
             return new SenhaReponse(true);
         }
     }

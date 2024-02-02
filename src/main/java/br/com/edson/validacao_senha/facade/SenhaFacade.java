@@ -2,13 +2,13 @@ package br.com.edson.validacao_senha.facade;
 
 import br.com.edson.validacao_senha.controller.domain.response.SenhaReponse;
 import br.com.edson.validacao_senha.service.Impl.SenhaServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
 @Service
+@AllArgsConstructor
 public class SenhaFacade {
-    @Autowired
     private SenhaServiceImpl senhaService;
 
     public SenhaReponse validarSenha(BindingResult validacaoSenha, String correlationId) {

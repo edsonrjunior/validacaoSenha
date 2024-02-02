@@ -12,8 +12,8 @@ public class HttpCallsLimit {
 
     @Bean
     public static Bucket bucketConfig() {
-        var refill = Refill.intervally(10, Duration.ofMinutes(1));
-        var limit = Bandwidth.classic(10, refill);
+        Refill refill = Refill.intervally(10, Duration.ofMinutes(1));
+        Bandwidth limit = Bandwidth.classic(10, refill);
 
         return Bucket.builder()
                 .addLimit(limit)

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class HttpCallsLimitTest {
@@ -16,7 +16,7 @@ class HttpCallsLimitTest {
     void deveConsumirNoMaximo10TokensPredefinidos() {
         final Bucket bucketConfig = HttpCallsLimit.bucketConfig();
 
-        var QTDE_MAXIMA_TOKENS = 10;
+        final int QTDE_MAXIMA_TOKENS = 10;
 
         for (int i = 1; i <= QTDE_MAXIMA_TOKENS; i++) {
             assertTrue(bucketConfig.tryConsume(1));
