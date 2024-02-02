@@ -5,7 +5,7 @@
 - [Sobre o Projeto](#sobre-o-projeto)
 - [API](#api)
 - [Requisitos](#requisitos)
-- [Arquitetura da aplicacação](#arquitetura-da-aplicação)
+- [Arquitetura da aplicação](#arquitetura-da-aplicação)
 - [Observability](#observability)
 - [Executando a aplicação](#executando-a-aplicação)
 - [Segurança](#segurança)
@@ -57,14 +57,14 @@ Requisitos:
 
 A aplicação baseia-se na arquitetura Onion, dividindo em diferentes em camadas de implementação,
 tais como a camada de domínio, de serviço e o core do projeto. Utiliza também alguns dos princícios do Solid,
-com classes de responsbilidade única e o princípio da segregação de interfaces, permitindo que o código seja mais
+com classes de responsabilidade única e o princípio da segregação de interfaces, permitindo que o código seja mais
 enxuto.
 
 O framework utilizado é o Spring Boot na versão 3.2.2 com Java 21.
 
 ### Spring Validation
 
-A regra de negócio resposável por validar a senha informada utiliza a
+A regra de negócio responsável por validar a senha informada utiliza a
 biblioteca [Spring Validation](https://docs.spring.io/spring-framework/reference/core/validation/beanvalidation.html)
 pois é de fácil utilização, disponibilizando diversas anotações que abstraem a implementação de algoritmos de validação.
 
@@ -95,12 +95,12 @@ validações eliminando o uso de extensos ifs e elses.
 ```java
     /**
  * (?!.*(.).*\1)                    - Não permitir caracteres duplicados
- * (?!.*\s)                         - Não permitir espacos em branco
+ * (?!.*\s)                         - Não permitir espaços em branco
  * (?=.*\d)                         - Permitir dígitos
  * (?=.*[a-z])                      - Permitir letras minúsculas
- * (?=.*[A-Z])                      - Permitir letras maúsculas
+ * (?=.*[A-Z])                      - Permitir letras maiúsculas
  * (?=.*[!@#$%^&*()+-])             - Permitir as caracteres especiais
- * (?!.*[^a-zA-Z0-9!@#$%^&*()+-]+)  - Negativa para não permitir nenhum caracter especial diferente da lista
+ * (?!.*[^a-zA-Z0-9!@#$%^&*()+-]+)  - Negativa para não permitir nenhum caractere especial diferente da lista
  * .{9,}                            - Permitir que a senha tenha ao menos 9 caracteres
  */
 ```
@@ -140,7 +140,7 @@ public class SenhaServiceImpl implements SenhaService {
 ```
 
 ### Lombok
-Em diversos trechos é utilizado o Lombok para simplificar o código, iliminando a necessidade de construir vários 
+Em diversos trechos é utilizado o Lombok para simplificar o código, eliminando a necessidade de construir vários 
 boiler plates como getter, setters e construtores.
 
 
@@ -152,7 +152,7 @@ métricas podem posteriormente serem capturadas e utilizadas pelo [Grafana](http
 dashboards.
 Tais configurações estão definidas no arquivo ``application.yml``.
 
-A aplicação utiliza a biblioteca ``Slf4`` para logar os princiais eventos.
+A aplicação utiliza a biblioteca ``Slf4`` para logar os principais eventos.
 
 ```java
 log.info("Iniciando validação da senha do correlationId "+correlationId);
@@ -172,27 +172,27 @@ cd validacaoSenha
 
 Após abrir na IDE, faça o build da aplicação executando o comando ``mvn clean install`` e verifique se o build finalizou
 com sucesso.
-![Img Sucesso Build](img_build_sucess.png)
+![Img Sucesso Build](doc/img_build_sucess.png)
 
 <br>Após finalizado o build, inicie a aplicação com o comando ``mvn spring-boot:run`` e verifique se está utilizando
 a porta 8080.
-![Img App Start Up](img_start_up_app.png)
+![Img App Start Up](doc/img_start_up_app.png)
 
 Em um aplicativo de testes de API (Postman ou Insomnia), crie uma resquisição do tipo POST no formato json conforme
 abaixo. Utilize o endpoint ```http http://localhost:8080/v1/senha/validar_senha```. <br> A seguir clique em SEND.
 
-![Img Postman Request](img_postman_resquest.png)
+![Img Postman Request](doc/img_postman_resquest.png)
 
 Caso a string informada atenda os requitos, retornará ```{"valid": true}``` caso contrário ```{"valid": false}```,
 ambas com HTTP Status Code ```200```.
 
-![Img Postman Response true](img_postman_response.png)
+![Img Postman Response true](doc/img_postman_response.png)
 
-![Img Postman Response False](img_postman_response_false.png)
+![Img Postman Response False](doc/img_postman_response_false.png)
 
 Em caso de mais de 10 requisições em 1 minuto a aplicação responderá com o HTTP Status Code ```429 Too Many Requests```.
 
-![Img Postman Response 429](img_postman_response_429.png)
+![Img Postman Response 429](doc/img_postman_response_429.png)
 
 ## [Segurança](#segurança)
 
@@ -215,15 +215,16 @@ public static Bucket bucketConfig(){
         .build();
 }
 ```
-Outra implementação utilizada é sempre proteger as classes com ``private`` e objetos com ``final`` contra modificação em tempo de executação ou mesmo 
+Outra implementação utilizada é sempre proteger as classes com ``private`` e objetos com ``final`` contra modificação em tempo de execução ou mesmo 
 de implementação indevida.
 
 ## [Documentação](#documentação)
 
 A aplicação utiliza o [Swagger](https://swagger.io/) que permite documentar de forma fácil e visual demonstrando
 quais parâmetros necessários no request como também o response. Permite também executar testes de forma fácil.
+Endpoint: ``http://localhost:8080/swagger-ui/index.html#/``
 
-![Img Sucesso Build](img_swagger.png)
+![Img Sucesso Build](doc/img_swagger.png)
 
 ## [Docker](#docker)
 
@@ -241,13 +242,13 @@ Em seguida crie o container para que a peça possa iniciar a execução
 docker run -d -p 8080:8080 --name valida_senha api/validacao_senha
 ```
 
-Então verifique se o container foi criado corretanente.
+Então verifique se o container foi criado corretamente.
 
 ```shell 
 docker container ps
 ```
 
-![Img Cmd Docker Ps](img_cmd_docker_ps.png)
+![Img Cmd Docker Ps](doc/img_cmd_docker_ps.png)
 
 Depois, basta executar os testes como descritos na sessão [Executando a aplicação](#executando-a-aplicação).
 
@@ -256,7 +257,7 @@ Depois, basta executar os testes como descritos na sessão [Executando a aplica�
 A implementação utilza o framework JUnit 5 com as bibliotecas Mockito e WebMvc.
 Possui 23 testes unitários com 100% das classes, 91.7% dos métodos e 92% das linhas cobertas.
 
-![Img Code Coverage](img_code_coverage.png)
+![Img Code Coverage](doc/img_code_coverage.png)
 
 ## [Contato](#contato)
 

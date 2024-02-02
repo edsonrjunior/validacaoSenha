@@ -26,7 +26,7 @@ public class Senha {
 
     @NotNull
     @Pattern(regexp = REGEX_SENHA)
-    String password;
+    private String password;
 
     public static boolean isRegexValido(String senha) {
         return senha.matches(REGEX_SENHA);
