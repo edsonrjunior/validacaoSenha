@@ -172,27 +172,27 @@ cd validacaoSenha
 
 Após abrir na IDE, faça o build da aplicação executando o comando ``mvn clean install`` e verifique se o build finalizou
 com sucesso.
-![Img Sucesso Build](img_build_sucess.png)
+![Img Sucesso Build](doc/img_build_sucess.png)
 
 <br>Após finalizado o build, inicie a aplicação com o comando ``mvn spring-boot:run`` e verifique se está utilizando
 a porta 8080.
-![Img App Start Up](img_start_up_app.png)
+![Img App Start Up](doc/img_start_up_app.png)
 
 Em um aplicativo de testes de API (Postman ou Insomnia), crie uma resquisição do tipo POST no formato json conforme
 abaixo. Utilize o endpoint ```http http://localhost:8080/v1/senha/validar_senha```. <br> A seguir clique em SEND.
 
-![Img Postman Request](img_postman_resquest.png)
+![Img Postman Request](doc/img_postman_resquest.png)
 
 Caso a string informada atenda os requitos, retornará ```{"valid": true}``` caso contrário ```{"valid": false}```,
 ambas com HTTP Status Code ```200```.
 
-![Img Postman Response true](img_postman_response.png)
+![Img Postman Response true](doc/img_postman_response.png)
 
-![Img Postman Response False](img_postman_response_false.png)
+![Img Postman Response False](doc/img_postman_response_false.png)
 
 Em caso de mais de 10 requisições em 1 minuto a aplicação responderá com o HTTP Status Code ```429 Too Many Requests```.
 
-![Img Postman Response 429](img_postman_response_429.png)
+![Img Postman Response 429](doc/img_postman_response_429.png)
 
 ## [Segurança](#segurança)
 
@@ -222,8 +222,9 @@ de implementação indevida.
 
 A aplicação utiliza o [Swagger](https://swagger.io/) que permite documentar de forma fácil e visual demonstrando
 quais parâmetros necessários no request como também o response. Permite também executar testes de forma fácil.
+Endpoint: ``http://localhost:8080/swagger-ui/index.html#/``
 
-![Img Sucesso Build](img_swagger.png)
+![Img Sucesso Build](doc/img_swagger.png)
 
 ## [Docker](#docker)
 
@@ -247,7 +248,7 @@ Então verifique se o container foi criado corretanente.
 docker container ps
 ```
 
-![Img Cmd Docker Ps](img_cmd_docker_ps.png)
+![Img Cmd Docker Ps](doc/img_cmd_docker_ps.png)
 
 Depois, basta executar os testes como descritos na sessão [Executando a aplicação](#executando-a-aplicação).
 
@@ -256,7 +257,7 @@ Depois, basta executar os testes como descritos na sessão [Executando a aplica�
 A implementação utilza o framework JUnit 5 com as bibliotecas Mockito e WebMvc.
 Possui 23 testes unitários com 100% das classes, 91.7% dos métodos e 92% das linhas cobertas.
 
-![Img Code Coverage](img_code_coverage.png)
+![Img Code Coverage](doc/img_code_coverage.png)
 
 ## [Contato](#contato)
 
