@@ -4,6 +4,7 @@ import br.com.edson.validacao_senha.controller.domain.request.Senha;
 import br.com.edson.validacao_senha.facade.SenhaFacade;
 import br.com.edson.validacao_senha.security.HttpCallsLimit;
 import br.com.edson.validacao_senha.service.SenhaService;
+import br.com.edson.validacao_senha.utils.JsonHandlerMock;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.bucket4j.Bucket;
 import org.junit.jupiter.api.DisplayName;
@@ -19,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.BindingResult;
 
+import static br.com.edson.validacao_senha.utils.ResourceUtils.asJsonString;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
@@ -44,31 +46,27 @@ class SenhaControllerTest {
     @Spy
     private SenhaController senhaController;
 
+    private final Senha senha = JsonHandlerMock.getSenhaClassFromJson();
+
     @Test
     @DisplayName("Deve retornar http code 200")
     void deveRetornar200QuandoApiForChamada() throws Exception {
         mock.perform(post("/v1/senha/validar_senha")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(new Senha("AbTp9!fok"))))
+                        .content(asJsonString(senha)))
                 .andExpect(status().isOk());
     }
 
     @Test
     @DisplayName("Deve retornar http code 404")
     void deveRetornar404QuandoAUrlForInvalida() throws Exception {
+
         mock.perform(post("/v1/senha/urlInvalida")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(new Senha("AbTp9!fok"))))
+                        .content(asJsonString(senha)))
                 .andExpect(status().isNotFound());
     }
 
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Test
     @DisplayName("Deve retornar true quando nao atingir o limite de requests")

@@ -6,13 +6,15 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class SenhaFacade {
     private SenhaServiceImpl senhaService;
 
-    public SenhaReponse validarSenha(BindingResult validacaoSenha, String correlationId) {
-        return senhaService.validarSenha(validacaoSenha, correlationId);
+    public SenhaReponse validarSenha(final BindingResult validacaoSenha) {
+        return senhaService.validarSenha(validacaoSenha, UUID.randomUUID().toString());
     }
 
 }

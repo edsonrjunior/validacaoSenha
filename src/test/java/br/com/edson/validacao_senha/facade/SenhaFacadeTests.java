@@ -35,7 +35,7 @@ class SenhaFacadeTests {
     void deveRetornarTrueQuandoORetornoDaValidacaoDaSenhaForTrue() {
         when(senhaService.validarSenha(bindingResult, correlationId)).thenReturn(new SenhaReponse(true));
 
-        SenhaReponse validarSenha = senhaFacade.validarSenha(bindingResult, correlationId);
+        SenhaReponse validarSenha = senhaFacade.validarSenha(bindingResult);
 
         assertTrue(validarSenha.isValid());
         verify(senhaService, times(1)).validarSenha(bindingResult, correlationId);
@@ -46,7 +46,7 @@ class SenhaFacadeTests {
     void deveRetornarFalsoQuandoORetornoDaValidacaoDaSenhaForFalso() {
         when(senhaService.validarSenha(bindingResult, correlationId)).thenReturn(new SenhaReponse(false));
 
-        SenhaReponse validarSenha = senhaFacade.validarSenha(bindingResult, correlationId);
+        SenhaReponse validarSenha = senhaFacade.validarSenha(bindingResult);
 
         assertFalse(validarSenha.isValid());
         verify(senhaService, times(1)).validarSenha(bindingResult, correlationId);

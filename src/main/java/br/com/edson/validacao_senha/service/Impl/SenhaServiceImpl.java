@@ -12,11 +12,10 @@ public class SenhaServiceImpl implements SenhaService {
 
     @Override
     public SenhaReponse validarSenha(final BindingResult validacaoSenha, final String correlationId) {
-        if (validacaoSenha.hasErrors()) {
-            log.info("A senha do correlationId {} possui erros ", correlationId);
+        if (validacaoSenha.hasErrors()) { //TODO Utilizar ternário
+            log.info("A senha do correlationId {} possui erros ", correlationId); //TODO Substituir por exception
             return new SenhaReponse(false);
         } else {
-            log.info("A senha do correlationId {} não possui erros", correlationId);
             return new SenhaReponse(true);
         }
     }

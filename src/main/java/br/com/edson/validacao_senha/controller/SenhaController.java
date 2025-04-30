@@ -31,14 +31,12 @@ public class SenhaController {
 
     private final Bucket bucketConfig = HttpCallsLimit.bucketConfig();
 
+    //TODO Implementar ExceptionHandler
+
     @PostMapping(value = "/validar_senha")
     public ResponseEntity<SenhaReponse> isValid(@RequestBody @Valid final Senha senha, final BindingResult validacaoSenha) {
-        String correlationId = UUID.randomUUID().toString();
-
-        log.info("Iniciando validação da senha do correlationId {} ", correlationId);
-
         return naoAntigiuLimiteResquests() ?
-                ResponseEntity.ok(senhaFacade.validarSenha(validacaoSenha, correlationId)) :
+                ResponseEntity.ok(senhaFacade.validarSenha(validacaoSenha)) :
                 ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
     }
 
